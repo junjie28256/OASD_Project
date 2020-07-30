@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+<head>
+    <script>
+        function TitlevalidateForm(){
+            var x=document.forms["myForm"]["title"].value;
+            if (x==null || x==""){
+                alert("图片的标题必须填写");
+                return false;
+            }
+        }
+        function FilevalidateForm(){
+            var x=document.getElementById("filepath").files[0].name;
+            if (x==null || x==""){
+                alert("请选取文件");
+                return false;
+            }
+        }
+        function AuthorvalidateForm(){
+            var x=document.forms["myForm"]["author"].value;
+            if (x==null || x==""){
+                alert("作者姓名必须填写");
+                return false;
+            }
+        }
+        function ThemevalidateForm(){
+            var x=document.forms["myForm"]["theme"].value;
+            if (x==null || x==""){
+                alert("作品主题必须填写");
+                return false;
+            }
+        }
+
+        function DesvalidateForm(){
+            var x=document.forms["myForm"]["description"].value;
+            if (x==null || x==""){
+                alert("作品简介必须填写");
+                return false;
+            }
+        }
+        function NationvalidateForm(){
+            var x=document.forms["myForm"]["nation"].value;
+            if (x==null || x==""){
+                alert("请选择所在国家");
+                return false;
+            }
+        }
+        function CityvalidateForm(){
+            var x=document.forms["myForm"]["city"].value;
+            if (x==null || x==""){
+                alert("请选择所在城市");
+                return false;
+            }
+        }
+        function valid() {
+            if(TitlevalidateForm){
+                if(AuthorvalidateForm){
+                    if(ThemevalidateForm){
+                        if (DesvalidateForm){
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+    </script>
+</head>
+<body>
+
+<form name="myForm" action="demo-form.php" onsubmit="return valid()" method="post">
+    姓: <input type="text" name="title">
+    姓: <input type="text" name="author">
+    姓: <input type="text" name="theme">
+    姓: <input type="text" name="description">
+<!--    姓: <input type="text" name="">-->
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

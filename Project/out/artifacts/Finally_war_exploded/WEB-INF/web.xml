@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>Servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>Servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>frontServlet</servlet-name>
+        <servlet-class>Servlet.FrontServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>frontServlet</servlet-name>
+        <url-pattern>/frontServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <servlet-class>com.UploadPhotoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <url-pattern>/uploadPhoto</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowPhotoServlet</servlet-name>
+        <servlet-class>com.ShowPhotoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowPhotoServlet</servlet-name>
+        <url-pattern>/showPhoto</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>welcomeServlet</servlet-name>
+        <servlet-class>Servlet.WelcomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>welcomeServlet</servlet-name>
+        <url-pattern>/Welcome</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MyUpload</servlet-name>
+        <servlet-class>Servlet.MyUploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyUpload</servlet-name>
+        <url-pattern>/myUpload</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>detailServlet</servlet-name>
+        <servlet-class>Servlet.DetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>detailServlet</servlet-name>
+        <url-pattern>/Details</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>searchServlet</servlet-name>
+        <servlet-class>Servlet.SearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>searchServlet</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>Servlet.SearchServlet2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/SearchServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>myPictureServlet</servlet-name>
+        <servlet-class>Servlet.MyPictureServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>myPictureServlet</servlet-name>
+        <url-pattern>/myPicture</url-pattern>
+    </servlet-mapping>
+
+<!--    <Context docBase="D:\image" path="/image" reloadable="true"/>-->
+</web-app>
