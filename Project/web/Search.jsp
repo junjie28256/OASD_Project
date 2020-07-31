@@ -184,6 +184,7 @@
 <%
     int curPage = (int) request.getAttribute("curPage");
     int maxPage = (int) request.getAttribute("maxPage");
+    List<Picture> list = (List<Picture>) request.getAttribute("dataList");
 %>
 
 <%-- 顶部导航栏 --%>
@@ -197,6 +198,15 @@
     </table>
     <table id="NavigationRight">
         <tr>
+            <td>
+                <a href="Mycollection" class="link" id="bar1" style="visibility: hidden">收藏夹</a>
+            </td>
+            <td>
+                <a href="Upload" class="link" id="bar2" style="margin-left: 20px;visibility: hidden">上传</a>
+            </td>
+            <td>
+                <a href="Mycollection" class="link" id="bar3" style="margin-left: 20px;visibility: hidden">我的上传</a>
+            </td>
             <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status">未登录</a></td>
         </tr>
     </table>
@@ -231,30 +241,91 @@
     <div id="results">
         <table>
             <tr>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img1" class="lastestImg"></a></div></td>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img2" class="lastestImg"></a></div></td>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img3" class="lastestImg"></a></div></td>
+                <%
+                    if(list.size() > 0){
+                        int max0 = list.size();
+                        if(list.size()>3)
+                            max0 = 3;
+                        for(int i = 0; i < max0;i++){
+                %>
+                <td class="resultsTd" style="position: relative">
+                    <div class="lastestDiv" style="position: relative">
+                        <a href="Details?id=<%=list.get(i).getId()%>"><img src="UploadImg/<%=list.get(i).getUrl()%>"  id="img<%=i+1%>" class="lastestImg"></a>
+                    </div>
+                    <input style="position: absolute;bottom: 0px;right: 170px" type="submit" value="查看详情" id="details<%=i%>">
+                    <script>
+                        document.getElementById("details<%=i%>").onclick = function () {
+                            window.location.assign("Details?id="+"<%=list.get(i).getId()%>");
+                        }
+                    </script>
+                </td>
+                <%
+                    }
+                %>
+
+
+
+
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(0).getId()%>"><img src=""  id="img1" class="lastestImg"></a></div></td>--%>
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(1).getId()%>"><img src=""  id="img2" class="lastestImg"></a></div></td>--%>
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(2).getId()%>"><img src=""  id="img3" class="lastestImg"></a></div></td>--%>
             </tr>
             <tr>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img4" class="lastestImg"></a></div></td>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img5" class="lastestImg"></a></div></td>
-                <td class="resultsTd"><div class="lastestDiv"><a href="#"><img src=""  id="img6" class="lastestImg"></a></div></td>
+                <%
+                    }
+                    if(list.size() > 3){
+                        for(int i = 3; i < list.size();i++){
+                %>
+                <td class="resultsTd" style="position:relative;">
+                    <div class="lastestDiv" style="position: relative">
+                        <a href="Details?id=<%=list.get(i).getId()%>"><img src="UploadImg/<%=list.get(i).getUrl()%>"  id="img<%=i+1%>" class="lastestImg"></a>
+                    </div>
+                    <input style="position: absolute;bottom: 0px;right: 170px" type="submit" value="查看详情" id="details<%=i%>">
+                    <script>
+                        document.getElementById("details<%=i%>").onclick = function () {
+                            window.location.assign("Details?id="+"<%=list.get(i).getId()%>");
+                        }
+                    </script>
+                </td>
+                <%
+                        }
+                    }
+                %>
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(3).getId()%>"><img src=""  id="img4" class="lastestImg"></a></div></td>--%>
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(4).getId()%>"><img src=""  id="img5" class="lastestImg"></a></div></td>--%>
+                <%--                    <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(5).getId()%>"><img src=""  id="img6" class="lastestImg"></a></div></td>--%>
             </tr>
         </table>
+
+
+
+
+<%--        <table>--%>
+<%--            <tr>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(0).getId()%>"><img src=""  id="img1" class="lastestImg"></a></div></td>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(1).getId()%>"><img src=""  id="img2" class="lastestImg"></a></div></td>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(2).getId()%>"><img src=""  id="img3" class="lastestImg"></a></div></td>--%>
+<%--            </tr>--%>
+<%--            <tr>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(3).getId()%>"><img src=""  id="img4" class="lastestImg"></a></div></td>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(4).getId()%>"><img src=""  id="img5" class="lastestImg"></a></div></td>--%>
+<%--                <td class="resultsTd"><div class="lastestDiv"><a href="Details?id=<%=list.get(5).getId()%>"><img src=""  id="img6" class="lastestImg"></a></div></td>--%>
+<%--            </tr>--%>
+<%--        </table>--%>
     </div>
 
     <div id="page">
         <div>
-            <%
-                String model = (String) request.getAttribute("model");
-                String key = (String) request.getAttribute("key");
-                String sort = (String) request.getAttribute("sort");
-            %>
-            <script>
-                document.getElementById("key").value = "<%=key%>";
-                document.getElementById("model").value = "<%=model%>";
-                document.getElementById("sort").value = "<%=sort%>";
-            </script>
+<%--            <%--%>
+<%--                String model = (String) request.getAttribute("model");--%>
+<%--                String key = (String) request.getAttribute("key");--%>
+<%--                String sort = (String) request.getAttribute("sort");--%>
+<%--            %>--%>
+<%--            <script>--%>
+<%--                document.getElementById("key").value = "<%=key%>";--%>
+<%--                document.getElementById("model").value = "<%=model%>";--%>
+<%--                document.getElementById("sort").value = "<%=sort%>";--%>
+<%--            </script>--%>
             第<%= curPage %>页，共<%= maxPage %>页
             <%if (curPage > 1){
             %>
@@ -301,9 +372,38 @@
 
 <div id="bottomNavigation">
 </div>
+
 <%
-    List<Picture> list = (List<Picture>) request.getAttribute("dataList");
-    int pageCount,min,max;
+    String m = null, k = null ,s = null;
+    Cookie[] cookies = request.getCookies();
+    if(cookies != null && cookies.length > 0){
+        String name;
+        for (Cookie cookie:cookies){
+            name = cookie.getName();
+            if(name.equals("SEARCH_MODEL")){
+                m = cookie.getValue();
+            }else if(name.equals("SEARCH_KEY")){
+                k = cookie.getValue();
+            }else if(name.equals("SEARCH_SORT")){
+                s = cookie.getValue();
+            }
+        }
+    }
+    if(k == null)
+        k = "";
+%>
+<script>
+    document.getElementById("search").value = k;
+    document.getElementById("model").value = m;
+    document.getElementById("sort").value = s;
+</script>
+<%
+
+%>
+
+
+<%
+//    int pageCount,min,max;
     int i = 1;
     if(list == null)
         System.out.println("list == null");
@@ -322,6 +422,40 @@
     }
 %>
 
+
+
+
+<%--进行cookie验证，检查用户是否登录--%>
+<%
+//    Cookie [] cookies = request.getCookies();
+    String USERID = null;
+    if(cookies != null && cookies.length > 0) {
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            System.out.println(name);
+            System.out.println(cookie.getValue());
+            if (name.equals("USERID")) {
+                USERID = cookie.getValue();
+            }
+        }
+        if(USERID != null){
+%>
+<script>
+    document.getElementById("status").innerHTML = "<%=USERID%>";
+    document.getElementById("bar1").style.visibility = "visible";
+    document.getElementById("bar2").style.visibility = "visible";
+    document.getElementById("bar3").style.visibility = "visible";
+</script>
+<%
+}else{
+%>
+<script>
+    document.getElementById("status").innerHTML = "未登录";
+</script>
+<%
+        }
+    }
+%>
 
 
 </body>

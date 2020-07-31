@@ -59,4 +59,11 @@ public class UserDaoImpl extends DAO<User> implements UserDAO {
         String password = getForValue(sql,username);
         return password;
     }
+
+    @Override
+    public int getIdFromUsername(String username) {
+        String sql = "select id from user where username = '"+username+"'";
+        int id = Integer.parseInt(getForValue(sql));
+        return id;
+    }
 }

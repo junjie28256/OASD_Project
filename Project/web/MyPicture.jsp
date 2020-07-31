@@ -1,4 +1,5 @@
-<%--
+<%@ page import="doamin.Picture" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: wangj
   Date: 2020/7/29
@@ -120,6 +121,18 @@
             border: solid;
             border-color: maroon;
         }
+        /*#results{*/
+        /*    width: 100%;*/
+        /*    height: 90%;*/
+        /*    border: solid;*/
+        /*    border-color: #ef9b11;*/
+        /*}*/
+        /*.resultsTd{*/
+        /*    width: 300px;*/
+        /*    height: 215px;*/
+        /*    border: solid;*/
+        /*    border-color: black;*/
+        /*}*/
         #results{
             width: 100%;
             height: 90%;
@@ -132,9 +145,22 @@
             border: solid;
             border-color: black;
         }
+        .lastestDiv{
+            width: 250px;
+            height: 130px;
+            margin-left: 10px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
+<%! int curPage,maxPage; %>
+<% curPage =Integer.parseInt(request.getAttribute("curPage").toString()); %> <!--取得当前页-->
+<% maxPage =Integer.parseInt((String)request.getAttribute("maxPage").toString()); %> <!--取得总页数-->
+
+<%
+    List<Picture> list = (List<Picture>) request.getAttribute("dataList");
+%>
 
 
 <%-- 顶部导航栏 --%>
@@ -148,6 +174,15 @@
     </table>
     <table id="NavigationRight">
         <tr>
+            <td>
+                <a href="Mycollection" class="link" id="bar1" style="visibility: hidden">收藏夹</a>
+            </td>
+            <td>
+                <a href="Upload" class="link" id="bar2" style="margin-left: 20px;visibility: hidden">上传</a>
+            </td>
+            <td>
+                <a href="Mycollection" class="link" id="bar3" style="margin-left: 20px;visibility: hidden">我的上传</a>
+            </td>
             <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status">未登录</a></td>
         </tr>
     </table>
@@ -161,21 +196,98 @@
         <div id="results">
             <table>
                 <tr>
-                    <td class="resultsTd">
-                        <
+                    <%
+                        if(list.size() > 0){
+                            int max0 = list.size();
+                            if(list.size()>3)
+                                max0 = 3;
+                            for(int i = 0; i < max0;i++){
+                    %>
+                    <td class="resultsTd" style="position: relative">
+                        <div class="lastestDiv" style="position: relative">
+                            <a href="Details?id=<%=list.get(i).getId()%>"><img src="UploadImg/<%=list.get(i).getUrl()%>"  id="img<%=i+1%>" class="lastestImg"></a>
+                        </div>
+                        <input style="position: absolute;bottom: 0px;right: 50px" type="submit" id="delete<%=i%>" value="删除">
+                        <script>
+                            document.getElementById("delete<%=i%>").onclick = function () {
+                                window.location.assign("Remove?pictureId="+"<%=list.get(i).getId()%>");
+                            }
+                        </script>
                     </td>
-                    <td class="resultsTd">fe</td>
-                    <td class="resultsTd">gr</td>
+                    <%
+                        }
+                    %>
+
+
                 </tr>
                 <tr>
-                    <td class="resultsTd">rerer</td>
-                    <td class="resultsTd">gr</td>
-                    <td class="resultsTd">grg</td>
+                    <%
+                        }
+                        if(list.size() > 3){
+                            for(int i = 3; i < list.size();i++){
+                    %>
+                    <td class="resultsTd" style="position:relative;">
+                        <div class="lastestDiv" style="position: relative">
+                            <a href="Details?id=<%=list.get(i).getId()%>"><img src="UploadImg/<%=list.get(i).getUrl()%>"  id="img<%=i+1%>" class="lastestImg"></a>
+                        </div>
+                        <input style="position: absolute;bottom: 0px;right: 50px" type="submit" id="delete<%=i%>" value="删除">
+                        <script>
+                            document.getElementById("delete<%=i%>").onclick = function () {
+                                window.location.assign("Remove?pictureId="+"<%=list.get(i).getId()%>");
+                            }
+                        </script>
+                    </td>
+                    <%
+                            }
+                        }
+                    %>
+
                 </tr>
             </table>
         </div>
         <div id="page">
-            page
+            <div>
+
+                第<%= curPage %>页，共<%= maxPage %>页
+                <%if (curPage > 1){
+                %>
+                <a href="Mycollection?page=1">首页</a>
+                <a href="Mycollection?page=<%=curPage - 1%>">上一页</a>
+                <%
+                }else {
+                %>
+                首页 上一页
+                <%
+                    }%>
+                <%if (curPage < maxPage){
+                %>
+                <a onclick="" href="Mycollection?page=<%=curPage + 1%>">下一页</a>
+                <a href="Mycollection?page=<%=maxPage %>">尾页</a>
+                <%
+                }else {
+                %>
+                下一页 尾页
+                <%
+                    }%>
+                转至第 <form name="form1" action="Mycollection" method="get">
+                <label>
+                    <select name="page" onchange="document.form1.submit()">
+                        <%for ( int i = 1; i <= maxPage; i++){
+                            if (i == curPage){
+                        %>
+                        <!--当前页页码默认选中-->
+                        <option selected value="<%= i%>"><%= i %></option>
+                        <%
+                        }else {
+                        %>
+                        <option value="<%= i %>"><%= i %></option>
+                        <%
+                                }
+                            }%>
+                    </select>
+                </label>
+            </form> 页
+            </div>
         </div>
     </div>
 
@@ -183,5 +295,38 @@
 
 <div id="bottomNavigation">
 </div>
+
+
+<%--进行cookie验证，检查用户是否登录--%>
+<%
+    Cookie [] cookies = request.getCookies();
+    String USERID = null;
+    if(cookies != null && cookies.length > 0) {
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            System.out.println(name);
+            System.out.println(cookie.getValue());
+            if (name.equals("USERID")) {
+                USERID = cookie.getValue();
+            }
+        }
+        if(USERID != null){
+%>
+<script>
+    document.getElementById("status").innerHTML = "<%=USERID%>";
+    document.getElementById("bar1").style.visibility = "visible";
+    document.getElementById("bar2").style.visibility = "visible";
+    document.getElementById("bar3").style.visibility = "visible";
+</script>
+<%
+}else{
+%>
+<script>
+    document.getElementById("status").innerHTML = "未登录";
+</script>
+<%
+        }
+    }
+%>
 </body>
 </html>

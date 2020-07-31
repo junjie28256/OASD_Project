@@ -102,6 +102,50 @@
         <servlet-name>myPictureServlet</servlet-name>
         <url-pattern>/myPicture</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>collectionServlet</servlet-name>
+        <servlet-class>Servlet.CollectionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>collectionServlet</servlet-name>
+        <url-pattern>/Collection</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>Servlet.UploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/Upload</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Delete</servlet-name>
+        <servlet-class>Servlet.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Delete</servlet-name>
+        <url-pattern>/Delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MycollectionServlet</servlet-name>
+        <servlet-class>Servlet.MycollectionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MycollectionServlet</servlet-name>
+        <url-pattern>/Mycollection</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>removeCollection</servlet-name>
+        <servlet-class>Servlet.RemoveCollectionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>removeCollection</servlet-name>
+        <url-pattern>/Remove</url-pattern>
+    </servlet-mapping>
 
 <!--    <Context docBase="D:\image" path="/image" reloadable="true"/>-->
 </web-app>

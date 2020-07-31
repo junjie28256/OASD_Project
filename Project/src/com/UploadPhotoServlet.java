@@ -31,6 +31,11 @@ public class UploadPhotoServlet extends HttpServlet {
 
     @SuppressWarnings("rawtypes")
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
+//        String test = request.getParameter("pictureId");
+//        System.out.println("通过隐藏输入框获得"+test);
+//        String del = (String) request.getAttribute("pictureId");
+//        System.out.println("删除的时候Id为"+del);
+
         PictureDAO pictureDAO = new PictureDAOImpl();
         Map<String,String> map = new HashMap<>();
         int flag = 1;
@@ -95,6 +100,15 @@ public class UploadPhotoServlet extends HttpServlet {
 //        System.out.println(id+"  "+map.get("title")+"  "+map.get("author")+"  "+map.get("theme")+"  "+map.get("description")+"  "+map.get("nation")+"  "+map.get("city")+"  "+filename+"  "+date+"   ");
         Picture picture = new Picture(id, map.get("title"),map.get("author"),map.get("theme"),map.get("description"),map.get("nation"),map.get("city"),filename, date,0);
         pictureDAO.save(picture);
+
+
+        System.out.println("通过map"+map.get("pictureId"));
+        String del = map.get("pictureId");
+//        int del = Integer.parseInt(pictureId);
+        if(del != null){
+            int delId = Integer.parseInt(del);
+            pictureDAO.delete(delId);
+        }
 
         if(flag == 1)
             request.setAttribute("uploadMessage","success");

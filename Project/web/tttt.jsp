@@ -1,4 +1,4 @@
-<%--
+<%@ page import="doamin.Picture" %><%--
   Created by IntelliJ IDEA.
   User: wangj
   Date: 2020/7/22
@@ -129,19 +129,28 @@
 
 
 
+<%-- 顶部导航栏 --%>
 <div id="topNavigation">
     <table id="NavigationLeft">
         <tr>
-            <td><img src="image/logo.png" id="logo"></td>
-            <td><a href="Welcome" class="link">首页</a></td>
-            <td><a href="SearchServlet" class="link">搜索</a></td>
+            <td class="td"><img src="image/logo.png" id="logo"></td>
+            <td class="td"><img src="image/logo/1-1.png" ><a href="Welcome" class="link" style="display: inline;margin-left: 2px">首页</a></td>
+            <td class="td"><a href="SearchServlet" class="link">搜索</a></td>
         </tr>
     </table>
     <table id="NavigationRight">
         <tr>
-            <td class="link">未登录</td>
+            <td>
+                <a href="Mycollection" class="link" id="bar1" style="visibility: hidden">收藏夹</a>
+            </td>
+            <td>
+                <a href="Upload" class="link" id="bar2" style="margin-left: 20px;visibility: hidden">上传</a>
+            </td>
+            <td>
+                <a href="Mycollection" class="link" id="bar3" style="margin-left: 20px;visibility: hidden">我的上传</a>
+            </td>
+            <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status">未登录</a></td>
         </tr>
-
     </table>
 </div>
 
@@ -154,6 +163,10 @@
 </div>
 
 <div id="body">
+
+
+
+
     <h2 >图片上传</h2>
     <hr>
 
@@ -205,6 +218,7 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><input style="visibility: hidden" id="pictureId" name="pictureId" value="9090900"></td>
                     <td><input type="submit" name="submit" value="提交"></td>
                 </tr>
             </table>
@@ -264,5 +278,59 @@
         }
     }
 </script>
+
+
+
+<%
+    Picture picture = (Picture) request.getAttribute("picture");
+    if(picture != null){
+//        request.setAttribute("pictureId",picture.getId());
+//        System.out.println("传输的时候ID为" + picture.getId());
+%>
+<script>
+    document.getElementById("pictureId").value = "<%=picture.getId()%>";
+    document.getElementById("title").value = "<%=picture.getTitle()%>";
+    document.getElementById("author").value = "<%=picture.getAuthor()%>";
+    document.getElementById("theme").value = "<%=picture.getTheme()%>";
+    document.getElementById("description").value = "<%=picture.getDescription()%>";
+    alert("请重新填写相关信息并在选择图片之后重新上传");
+</script>
+<%
+    }
+%>
+
+
+
+<%--进行cookie验证，检查用户是否登录--%>
+<%
+    Cookie [] cookies = request.getCookies();
+    String USERID = null;
+    if(cookies != null && cookies.length > 0) {
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            System.out.println(name);
+            System.out.println(cookie.getValue());
+            if (name.equals("USERID")) {
+                USERID = cookie.getValue();
+            }
+        }
+        if(USERID != null){
+%>
+<script>
+    document.getElementById("status").innerHTML = "<%=USERID%>";
+    document.getElementById("bar1").style.visibility = "visible";
+    document.getElementById("bar2").style.visibility = "visible";
+    document.getElementById("bar3").style.visibility = "visible";
+</script>
+<%
+}else{
+%>
+<script>
+    document.getElementById("status").innerHTML = "未登录";
+</script>
+<%
+        }
+    }
+%>
 </body>
 </html>

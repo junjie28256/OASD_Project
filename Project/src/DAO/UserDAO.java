@@ -22,4 +22,7 @@ public interface UserDAO {
 
     public String getPasswordFromUsername(String username);
 
+    public int getIdFromUsername(String username);
+
+
 }

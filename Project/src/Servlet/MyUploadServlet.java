@@ -7,6 +7,7 @@ import doamin.Picture;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,9 +41,24 @@ public class MyUploadServlet extends HttpServlet {
             System.out.println("curpage"+curPage);
         }
 
+        Cookie[] cookies = request.getCookies();
+        String author = null;
+        if(cookies != null && cookies.length > 0){
+            String name;
+            for (Cookie cookie:cookies){
+                name = cookie.getName();
+                if(name.equals("USERID")){
+                    author = cookie.getValue();
+                }
+            }
+        }
+        if(author == null){
+            System.out.println("未检测到用户信息");
+        }
+
         List<Picture> dataList;
-        dataList = pictureDAO.getMine("2",(curPage-1)*rowsPerPage,rowsPerPage);  //获取当前页的数据
-        maxPage = (int) pictureDAO.getMinePage("2",rowsPerPage);  //获取总页数
+        dataList = pictureDAO.getMine(author,(curPage-1)*rowsPerPage,rowsPerPage);  //获取当前页的数据
+        maxPage = (int) pictureDAO.getMinePage(author,rowsPerPage);  //获取总页数
         request.setAttribute("dataList",dataList);
         request.setAttribute("maxPage", maxPage);
         System.out.println("datalist"+dataList);

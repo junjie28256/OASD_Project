@@ -2,6 +2,7 @@ package JunitTest;
 
 import DaoImpl.UserDaoImpl;
 import doamin.User;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,12 @@ class UserDaoImplTest {
     void getPasswordFromUsername() {
 //        userDao.getCountWithName("1111");
         System.out.println(userDao.getPasswordFromUsername("88"));
+    }
+
+    @Test
+    void tesGetIdFromUsername(){
+        int id =  userDao.getIdFromUsername("77");
+        System.out.println(id);
     }
 
 }

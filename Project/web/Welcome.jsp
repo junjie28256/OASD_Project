@@ -99,9 +99,10 @@
         }
         #latest{
             float: left;
-            width: 70%;
+
+            width: 80%;
             height: 50%;
-            background-color: aquamarine;
+            /*background-color: aquamarine;*/
         }
         #authors{
             float: right;
@@ -183,30 +184,31 @@
             z-index: 99;
         }
         #latestTB{
-            margin-left: 21%;
+            margin-left: 20%;
+            width: 80%;
         }
         #latestTBName{
             height: 45px;
-            border: 2px solid red;
+            /*border: 2px solid red;*/
         }
         .lastestTd{
             width: 358px;
             height: 140px;
-            border: solid;
-            border-color: black;
+            /*border: solid;*/
+            /*border-color: black;*/
             position: relative;
         }
         .lastestTd1{
             width: 238px;
             height: 280px;
-            border: solid;
-            border-color: black;
+            /*border: solid;*/
+            /*border-color: black;*/
             position: relative;
         }
         .lastestDiv1{
             width: 162px;
             height: 230px;
-            border: 2px solid red;
+            /*border: 2px solid red;*/
             position: absolute;
             left: 4px;
             top: 4px;
@@ -220,7 +222,7 @@
         .lastestDiv{
             width: 98%;
             height: 70%;
-            border: 2px solid red;
+            /*border: 2px solid red;*/
             position: absolute;
             left: 2px;
             top: 4px;
@@ -328,7 +330,16 @@
     </table>
     <table id="NavigationRight">
         <tr>
-            <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status">未登录</a></td>
+            <td>
+                <a href="Mycollection" class="link" id="bar1" style="visibility: hidden">收藏夹</a>
+            </td>
+            <td>
+                <a href="Upload" class="link" id="bar2" style="margin-left: 20px;visibility: hidden">上传</a>
+            </td>
+            <td>
+                <a href="Mycollection" class="link" id="bar3" style="margin-left: 20px;visibility: hidden">我的上传</a>
+            </td>
+            <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status" style="margin-left: 20px">未登录</a></td>
         </tr>
     </table>
 </div>
@@ -399,42 +410,42 @@
 
 </div>
 
-<div id="authors">
-    <table id="authorsTB">
-        <tr>
-            <td colspan="2" class="authorsTd">1</td>
-        </tr>
-        <tr>
-            <td  class="authorsTdL">1</td>
-            <td  class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-        <tr>
-            <td class="authorsTdL">1</td>
-            <td class="authorsTd">2</td>
-        </tr>
-    </table>
+<%--<div id="authors">--%>
+<%--    <table id="authorsTB">--%>
+<%--        <tr>--%>
+<%--            <td colspan="2" class="authorsTd">1</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td  class="authorsTdL">1</td>--%>
+<%--            <td  class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td class="authorsTdL">1</td>--%>
+<%--            <td class="authorsTd">2</td>--%>
+<%--        </tr>--%>
+<%--    </table>--%>
 
-</div>
+<%--</div>--%>
 
 <div id="bottomNavigation">
 <%--    zaina--%>
@@ -459,7 +470,7 @@
 
 <div id="register">
     <img src="image/2.png" id="registerShutdown" onclick="shutdown()">
-    <p id="RegisterAlert">where</p>
+    <p id="RegisterAlert"></p>
     <form action="RegisterServlet" method="post" name="RegisterForm" id="RegisterForm">
         <label for="username">username</label>
         <input type="text" id="username" name="username"  value="<%= request.getParameter("username")==null ? "":request.getParameter("username") %>">
@@ -720,12 +731,15 @@
 %>
 <script>
         document.getElementById("status").innerHTML = "<%=USERID%>";
+        document.getElementById("bar1").style.visibility = "visible";
+        document.getElementById("bar2").style.visibility = "visible";
+        document.getElementById("bar3").style.visibility = "visible";
 </script>
 <%
         }else{
 %>
 <script>
-    document.getElementById("status").innerHTML = "我是谁";
+    document.getElementById("status").innerHTML = "未登录";
 </script>
 <%
         }

@@ -154,8 +154,8 @@
     <table id="NavigationLeft">
         <tr>
             <td class="td"><img src="image/logo.png" id="logo"></td>
-            <td class="td"><img src="image/logo/1-1.png" ><a href="Welcome.html" class="link" style="display: inline;margin-left: 2px">首页</a></td>
-            <td class="td"><a href="Welcome.html" class="link">搜索</a></td>
+            <td class="td"><img src="image/logo/1-1.png" ><a href="Welcome" class="link" style="display: inline;margin-left: 2px">首页</a></td>
+            <td class="td"><a href="SearchServlet" class="link">搜索</a></td>
         </tr>
     </table>
     <table id="NavigationRight">
@@ -210,5 +210,37 @@
 
 <div id="bottomNavigation">
 </div>
+
+<%--进行cookie验证，检查用户是否登录--%>
+<%
+    Cookie [] cookies = request.getCookies();
+    String USERID = null;
+    if(cookies != null && cookies.length > 0) {
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            System.out.println(name);
+            System.out.println(cookie.getValue());
+            if (name.equals("USERID")) {
+                USERID = cookie.getValue();
+            }
+        }
+        if(USERID != null){
+%>
+<script>
+    document.getElementById("status").innerHTML = "<%=USERID%>";
+    document.getElementById("bar1").style.visibility = "visible";
+    document.getElementById("bar2").style.visibility = "visible";
+    document.getElementById("bar3").style.visibility = "visible";
+</script>
+<%
+}else{
+%>
+<script>
+    document.getElementById("status").innerHTML = "未登录";
+</script>
+<%
+        }
+    }
+%>
 </body>
 </html>

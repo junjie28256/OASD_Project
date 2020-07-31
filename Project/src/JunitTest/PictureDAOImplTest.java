@@ -20,7 +20,7 @@ class PictureDAOImplTest {
 
     @Test
     void delete() {
-        pictureDAO.delete(3);
+        pictureDAO.delete(25);
     }
 
     @Test
@@ -54,7 +54,7 @@ class PictureDAOImplTest {
     void getLatest() {
         List<Picture> list = pictureDAO.getLatest();
         for (Picture picture : list){
-            System.out.println(picture.getDate());
+            System.out.println(picture.getId());
         }
     }
     @Test
@@ -93,7 +93,7 @@ class PictureDAOImplTest {
 
     @Test
     void getData(){
-        List<Picture> list = pictureDAO.getData("title","wwwe","id",2,2);
+        List<Picture> list = pictureDAO.getData("title","wwwe","heat",2,2);
         for(Picture picture:list){
             System.out.println(picture.toString());
         }
@@ -121,6 +121,11 @@ class PictureDAOImplTest {
     void testLenth(){
         String str = "wwee汪dd";
         System.out.println(str.length());
+    }
+
+    @Test
+    void testAddHeat(){
+        pictureDAO.AddHeat(45);
     }
 
 }

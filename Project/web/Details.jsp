@@ -236,6 +236,10 @@
 </head>
 <body>
 
+<%
+    Picture picture = (Picture) request.getAttribute("picture");
+%>
+
 
 <%-- 顶部导航栏 --%>
 <div id="topNavigation">
@@ -248,6 +252,15 @@
     </table>
     <table id="NavigationRight">
         <tr>
+            <td>
+                <a href="Mycollection" class="link" id="bar1" style="visibility: hidden">收藏夹</a>
+            </td>
+            <td>
+                <a href="Upload" class="link" id="bar2" style="margin-left: 20px;visibility: hidden">上传</a>
+            </td>
+            <td>
+                <a href="Mycollection" class="link" id="bar3" style="margin-left: 20px;visibility: hidden">我的上传</a>
+            </td>
             <td class="td" ><a href="#" class="link" onclick="showLogin()" id="status">未登录</a></td>
         </tr>
     </table>
@@ -299,20 +312,34 @@
     <div id="do">
         <table cellspacing="10" border="solid" border-color="red">
             <tr>
-                <td style="border-color: #4CAF50;border: solid"><input type="submit" value="收藏"></td>
+                <td style="border-color: #4CAF50;border: solid"><input id="Colflag" type="submit" value="收藏"></td>
                 <td style="border-color: #4CAF50;border: solid"><input type="submit" value="评价"></td>
             </tr>
         </table>
     </div>
 </div>
+<script>
+    document.getElementById("Colflag").onclick = function () {
+        window.location.assign("Collection?pictureId="+"<%=picture.getId()%>");
+    }
+</script>
 
 
 <div id="bottomNavigation">
 </div>
 
+
 <%
-    Picture picture = (Picture) request.getAttribute("picture");
+    int flag = (int) request.getAttribute("flag");
+    if(flag == 1){
 %>
+<script>
+    document.getElementById("Colflag").value = "已收藏";
+</script>
+<%
+    }
+%>
+
 <script>
     document.getElementById("mainImg").src ="UploadImg/"+ "<%=picture.getUrl()%>";
     document.getElementById("sideImg").src ="UploadImg/"+ "<%=picture.getUrl()%>";
@@ -327,6 +354,37 @@
 
 
 
+<%--进行cookie验证，检查用户是否登录--%>
+<%
+    Cookie [] cookies = request.getCookies();
+    String USERID = null;
+    if(cookies != null && cookies.length > 0) {
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            System.out.println(name);
+            System.out.println(cookie.getValue());
+            if (name.equals("USERID")) {
+                USERID = cookie.getValue();
+            }
+        }
+        if(USERID != null){
+%>
+<script>
+    document.getElementById("status").innerHTML = "<%=USERID%>";
+    document.getElementById("bar1").style.visibility = "visible";
+    document.getElementById("bar2").style.visibility = "visible";
+    document.getElementById("bar3").style.visibility = "visible";
+</script>
+<%
+}else{
+%>
+<script>
+    document.getElementById("status").innerHTML = "未登录";
+</script>
+<%
+        }
+    }
+%>
 
 </body>
 </html>

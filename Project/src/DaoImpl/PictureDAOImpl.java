@@ -62,6 +62,8 @@ public class PictureDAOImpl extends DAO<Picture> implements PictureDAO {
 
     @Override
     public List<Picture> getData(String model, String key, String sort,int min, int max) {
+        if(sort.equals("time"))
+            sort = "id";
         String sql = "select * from picture where "+model+" like '%"+key+"%' order by "+sort +" limit "+ min +", "+ max +"";
         List<Picture> list = getAll(sql);
         System.out.println(sql);
@@ -90,6 +92,14 @@ public class PictureDAOImpl extends DAO<Picture> implements PictureDAO {
         long count = getForValue(sql);
         long page = (count + rowsPerPage -1) / rowsPerPage;
         return page;
+    }
+
+    @Override
+    public void AddHeat(int id) {
+        String sql = "Update picture set heat = ? Where id = ? ";
+        String sql2 = "select heat from picture where id = ?";
+        int heat = getForValue(sql2,id);
+        updata(sql,(heat+1),id);
     }
 
 

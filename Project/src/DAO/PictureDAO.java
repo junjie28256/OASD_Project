@@ -28,4 +28,8 @@ public interface PictureDAO {
     public List<Picture> getMine(String author,int min, int max);
 
     public long getMinePage(String author, int rowsPerPage);
+
+    public void AddHeat(int id);
+
+
 }
